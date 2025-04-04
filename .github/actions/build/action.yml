@@ -10,5 +10,4 @@ runs:
 
     - name: install
       run: pip install -r requirements.txt
-      shell: pwsh
       working-directory: build
