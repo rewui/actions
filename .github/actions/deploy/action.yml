@@ -23,7 +23,7 @@ runs:
       run:  pm2 start app.py --name greetings-app-${{inputs.environment}} -- --port ${{inputs.port}}
       shell: cmd
       working-directory: deploy
-      name: check if app is running
+    - name: check if app is running
       run: pm2 list
       shell: cmd
       working-directory: deploy
