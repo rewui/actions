@@ -7,6 +7,9 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Stop PM2 processes
+      run: pm2 delete all || echo "No processes to delete"
+      shell: cmd
     - name: echo 
       run: echo Deployment to ${{inputs.environment}} has started
       shell: cmd
