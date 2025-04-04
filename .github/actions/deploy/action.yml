@@ -22,6 +22,8 @@ runs:
       shell: powershell
       working-directory: deploy
     - name: start
-      run: pm2 start app.py --name greetings-app-${{inputs.environment}} -- --port ${{inputs.port}}
-      shell: cmd
+      run: |
+        $env:RUNNER_TRACKING_ID=""
+        pm2 start app.py --name greetings-app-${{inputs.environment}} -- --port ${{inputs.port}}
+      shell: powershell
       working-directory: deploy
