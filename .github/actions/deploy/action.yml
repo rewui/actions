@@ -20,6 +20,6 @@ runs:
       shell: cmd
       working-directory: deploy
     - name: start
-      run:  RUNNER_TRACKING_ID="" pm2 start app.py --name greetings-app-${{inputs.environment}} -- --port ${{inputs.port}}
+      run:  RUNNER_TRACKING_ID="" && pm2 start app.py --name greetings-app-${{inputs.environment}} -- --port ${{inputs.port}}
       shell: cmd
       working-directory: deploy
