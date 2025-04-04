@@ -18,12 +18,10 @@ runs:
     - name: delete
       run: |
         $env:RUNNER_TRACKING_ID=""
-        pm2 delete greetings-app-${{inputs.environment}}; exit 0
+        pm2 delete greetings-app-${{inputs.environment}} || exit 0
       shell: powershell
       working-directory: deploy
     - name: start
-      run: |
-        $env:RUNNER_TRACKING_ID=""
-        pm2 start app.py --name greetings-app-${{inputs.environment}} -- --port ${{inputs.port}}
-      shell: powershell
+      run: pm2 start app.py --name greetings-app-${{inputs.environment}} -- --port ${{inputs.port}}
+      shell: cmd
       working-directory: deploy
