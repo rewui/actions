@@ -30,7 +30,7 @@ jobs:
     steps:
       - uses: ./.github/actions/deploy
         with:
-          environment: 'staging'
+          environment: 'stg'
           port: '7002'
   tests-on-staging:
     runs-on: self-hosted
@@ -38,7 +38,7 @@ jobs:
     steps:
       - uses: ./.github/actions/tests
         with:
-          environment: 'staging'
+          environment: 'stg'
   deploy-to-preprod:
     runs-on: self-hosted
     needs: [tests-on-staging]

@@ -21,3 +21,7 @@ runs:
       run: npm run greetings greetings_${{inputs.environment}}
       shell: cmd
       working-directory: tests
+    - name: Stop PM2 processes
+      run: pm2 delete all || echo "No processes to delete"
+      shell: cmd
+    - uses: actions/checkout@v4
