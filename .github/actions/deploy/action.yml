@@ -16,7 +16,7 @@ runs:
         repository: mtararujs/python-greetings
         path: deploy
     - name: delete
-      run: pm2 delete greetings-app-${{inputs.environment}} & EXIT /B 0
+      run: RUNNER_TRACKING_ID="" && pm2 delete greetings-app-${{inputs.environment}} & EXIT /B 0
       shell: cmd
       working-directory: deploy
     - name: start
