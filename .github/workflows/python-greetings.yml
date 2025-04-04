@@ -1,0 +1,81 @@
+name: node version
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+jobs:
+  install-pip-deps:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/build
+  deploy-to-dev:
+    runs-on: self-hosted
+    needs: [install-pip-deps]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/deploy
+        with:
+          environment: 'DEV'
+          port: '1010'
+  tests-on-dev:
+    runs-on: self-hosted
+    needs: [deploy-to-dev]
+    steps:
+      - uses: ./.github/actions/test
+        with:
+          environment: 'DEV'
+          test-suite: 'BOOKS'
+  deploy-to-staging:
+    runs-on: self-hosted
+    needs: [tests-on-dev]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/deploy
+        with:
+          environment: 'STG'
+          port: '2020'
+  tests-on-staging:
+    runs-on: self-hosted
+    needs: [deploy-to-staging]
+    steps:
+      - uses: ./.github/actions/test
+        with:
+          environment: 'DEV'
+          test-suite: 'BOOKS'
+  deploy-to-preprod:
+    runs-on: self-hosted
+    needs: [tests-on-staging]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/deploy
+        with:
+          environment: 'PRD'
+          port: '3030'
+  tests-on-preprod:
+    runs-on: self-hosted
+    needs: [deploy-to-preprod]
+    steps:
+      - uses: ./.github/actions/test
+        with:
+          environment: 'DEV'
+          test-suite: 'BOOKS'
+  deploy-to-prod:
+    runs-on: self-hosted
+    needs: [tests-on-preprod]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/deploy
+        with:
+          environment: 'PRD'
+          port: '3030'
+  tests-on-prod:
+    runs-on: self-hosted
+    needs: [deploy-to-prod]
+    steps:
+      - uses: ./.github/actions/test
+        with:
+          environment: 'DEV'
+          test-suite: 'BOOKS'
+      

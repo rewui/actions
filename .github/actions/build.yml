@@ -1,0 +1,14 @@
+name: build
+runs:
+  using: composite
+  steps:
+    - name: clone
+      uses: actions/checkout@v4
+      with:
+        repository: mtararujs/python-greetings
+        path: build
+
+    - name: install
+      run: pip3 install -r requirements.txt
+      shell: bash
+      working-directory: build
