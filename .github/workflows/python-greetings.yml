@@ -13,7 +13,6 @@ jobs:
     runs-on: self-hosted
     needs: [install-pip-deps]
     steps:
-      - uses: actions/checkout@v4
       - uses: ./.github/actions/deploy
         with:
           environment: 'dev'
@@ -29,7 +28,6 @@ jobs:
     runs-on: self-hosted
     needs: [tests-on-dev]
     steps:
-      - uses: actions/checkout@v4
       - uses: ./.github/actions/deploy
         with:
           environment: 'staging'
