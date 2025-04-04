@@ -13,9 +13,6 @@ runs:
       with:
         repository: mtararujs/course-js-api-framework
         path: tests
-    - name: Resurrect PM2
-      run: pm2 resurrect
-      shell: cmd
     - name: install
       run: npm install
       shell: cmd
