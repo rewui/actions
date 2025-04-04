@@ -6,7 +6,7 @@ runs:
   using: composite
   steps:
     - name: echo 
-      run: Tests on ${{inputs.environment}} has started
+      run: echo Tests on ${{inputs.environment}} has started
       shell: cmd
     - name: clone
       uses: actions/checkout@v4
