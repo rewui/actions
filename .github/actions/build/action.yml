@@ -5,13 +5,11 @@ runs:
     - name: echo 
       run: echo Installing all required depdendencies
       shell: cmd
-
     - name: clone
       uses: actions/checkout@v4
       with:
         repository: mtararujs/python-greetings
         path: build
-
     - name: install
       run: pip install -r requirements.txt
       shell: cmd

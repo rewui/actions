@@ -1,0 +1,23 @@
+name: tests
+inputs:
+  environment:
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: echo 
+      run: Tests on ${{inputs.environment}} has started
+      shell: cmd
+    - name: clone
+      uses: actions/checkout@v4
+      with:
+        repository: mtararujs/course-js-api-framework
+        path: tests
+    - name: install
+      run: npm install
+      shell: cmd
+      working-directory: tests
+    - name: run
+      run:   npm run greetings greetings_${{inputs.environment}}
+      shell: cmd
+      working-directory: tests
