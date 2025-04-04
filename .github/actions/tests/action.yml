@@ -8,6 +8,9 @@ runs:
     - name: echo 
       run: echo Tests on ${{inputs.environment}} has started
       shell: cmd
+    - name: list
+      run: pm2 list
+      shell: cmd
     - name: clone
       uses: actions/checkout@v4
       with:
