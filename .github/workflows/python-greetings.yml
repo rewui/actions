@@ -21,22 +21,52 @@ jobs:
   tests-on-dev:
     runs-on: self-hosted
     needs: [deploy-to-dev]
+    steps:
+      - name: Run tests on staging
+        run: echo "Running tests on staging"
   deploy-to-staging:
     runs-on: self-hosted
     needs: [tests-on-dev]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/deploy
+        with:
+          environment: 'staging'
+          port: '7001'
   tests-on-staging:
     runs-on: self-hosted
     needs: [deploy-to-staging]
+    steps:
+      - name: Run tests on staging
+        run: echo "Running tests on staging"
   deploy-to-preprod:
     runs-on: self-hosted
     needs: [tests-on-staging]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/deploy
+        with:
+          environment: 'preprod'
+          port: '7003'
   tests-on-preprod:
     runs-on: self-hosted
     needs: [deploy-to-preprod]
+    steps:
+      - name: Run tests on staging
+        run: echo "Running tests on staging"
   deploy-to-prod:
     runs-on: self-hosted
     needs: [tests-on-preprod]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/deploy
+        with:
+          environment: 'prod'
+          port: '7004'
   tests-on-prod:
     runs-on: self-hosted
     needs: [deploy-to-prod]
+    steps:
+      - name: Run tests on staging
+        run: echo "Running tests on staging"
       
