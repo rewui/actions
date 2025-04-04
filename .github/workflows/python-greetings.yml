@@ -34,7 +34,7 @@ jobs:
       - uses: ./.github/actions/deploy
         with:
           environment: 'staging'
-          port: '7001'
+          port: '7002'
   tests-on-staging:
     runs-on: self-hosted
     needs: [deploy-to-staging]
@@ -65,13 +65,16 @@ jobs:
     needs: [tests-on-preprod]
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/actions/tests
+      - uses: ./.github/actions/deploy
         with:
           environment: 'prod'
+          port: '7004'
   tests-on-prod:
     runs-on: self-hosted
     needs: [deploy-to-prod]
     steps:
-      - name: Run tests on staging
-        run: echo "Running tests on staging"
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/tests
+        with:
+          environment: 'prod'
       
