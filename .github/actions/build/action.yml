@@ -2,6 +2,10 @@ name: build
 runs:
   using: composite
   steps:
+    - name: echo 
+      run: echo Installing all required depdendencies
+      shell: cmd
+
     - name: clone
       uses: actions/checkout@v4
       with:
